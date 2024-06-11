@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.beat-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.beat {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 24px;
+    background-color: #ddd;
+    border-radius: 50%;
+    transition: transform 0.1s, background-color 0.1s;
+}
+
+.beat.active {
+    background-color: red;
+    transform: scale(1.2);
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pad-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pad {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4CAF50;
+    color: white;
+    margin: 10px 0;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+}
+
+.pad:hover {
+    background-color: #45a049;
+}
+
+.control {
+    margin: 5px 0;
+}
+
+#stopButton {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+}
+
+#stopButton:hover {
+    background-color: #e53935;
+}
