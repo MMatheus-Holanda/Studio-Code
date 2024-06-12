@@ -240,6 +240,45 @@ document.getElementById('filePad4').addEventListener('click', (event) => {
     event.stopPropagation();
 });
 
+document.getElementById('bpmPad1').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('bpmPad2').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('bpmPad3').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('bpmPad4').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
+document.getElementById('onbeat1').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('onbeat2').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('onbeat3').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('onbeat4').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
+document.getElementById('offbeat1').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('offbeat2').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('offbeat3').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+document.getElementById('offbeat4').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
 let recorder;
 let audioStream;
 
