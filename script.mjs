@@ -1,9 +1,23 @@
-let audioContext;
+import { AudioContext } from 'audio-context'; // Assuming you have audio-context imported
+
+const audioContext = new AudioContext();
+
+// Register the worklet
+await audioContext.audioWorklet.addModule('./mixing-processor.js');
+
+import RecorderProcessor from './recorderWorkletProcessor.js'
+
+// When needed, use the imported processors:
+const mixingProcessor = new MixingProcessor();
+const recorderProcessor = new RecorderProcessor();
+
 let rhythmIntervals = {};
 let soundBuffers = {};
 let volumeControls = {};
 let beatCounter = 1;
 let beatIndicatorInterval;
+let recorder;
+let audioStream;
 
 // Obtenha o valor do BPM global
 const globalBPMInput = document.getElementById('globalBPM');
@@ -279,40 +293,53 @@ document.getElementById('offbeat4').addEventListener('click', (event) => {
     event.stopPropagation();
 });
 
-let recorder;
-let audioStream;
-
+// Function to start recording
 function startRecording() {
-    navigator.mediaDevices.getUserMedia({ audio: true })
-    .then(function(stream) {
-        audioStream = stream;
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const input = audioContext.createMediaStreamSource(stream);
-        recorder = new Recorder(input);
-        recorder.record();
+    ensureAudioContext();
+  
+    // Create a new AudioWorkletProcessor to mix pad audio
+    const mixingProcessor = new AudioWorkletProcessor('mixing-processor.js');
+    audioContext.audioWorklet.addModule('mixing-processor.js').then(() => {
+      const mixingNode = audioContext.createAudioWorkletNode('mixing-processor');
+  
+      // Connect each pad's output to the mixing node
+      for (const padId in rhythmIntervals) {
+        const source = audioContext.createMediaStreamSource(rhythmIntervals[padId].stream);
+        source.connect(mixingNode);
+      }
+  
+      // Create a MediaRecorder to record the mixed stream
+      const recordedStream = mixingNode.getStream();
+      recorder = new Recorder(recordedStream);
+  
+      // Start recording after the worklet is loaded
+      recorder.record();
     });
-}
+  }
 
+// Function to stop recording
 function stopRecording() {
     recorder.stop();
     audioStream.getTracks().forEach(track => track.stop());
     recorder.exportWAV(function(blob) {
-        audioBlob = blob;
+      audioBlob = blob;
     });
-}
+  }
 
+// Function to download the recorded audio
 function downloadRecording() {
     const fileNameInput = document.getElementById('fileNameInput');
     if (!fileNameInput.value) {
-        alert('Por favor, insira um nome para o arquivo antes de baixar.');
-        return;
+      alert('Please enter a filename before downloading.');
+      return;
     }
+  
     const audioURL = window.URL.createObjectURL(audioBlob);
     const link = document.createElement('a');
     link.href = audioURL;
     link.download = fileNameInput.value + '.wav';
     link.click();
-}
+  }
 
 document.getElementById('startRecordingButton').addEventListener('click', startRecording);
 document.getElementById('stopRecordingButton').addEventListener('click', stopRecording);

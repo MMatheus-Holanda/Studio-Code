@@ -17,9 +17,9 @@
         </div>    
         
         <div id="RecordButtons">
-            <button  class="record_buttons"> <img src="assets/botao-rec.png" id="recBt"> </button>
-            <button  class="record_buttons"> <img src="assets/botao-stop.png" id="stopBt"> </button>
-            <button  class="record_buttons"> <img src="assets/botao-download.png" id="downloadBt"> </button>
+            <button id="startRecordingButton" class="record_buttons"> <img src="assets/botao-rec.png" id="recBt"> </button>
+            <button id="stopRecordingButton" class="record_buttons"> <img src="assets/botao-stop.png" id="stopBt"> </button>
+            <button id="downloadButton" class="record_buttons"> <img src="assets/botao-download.png" id="downloadBt"> </button>
             <input type="text" id="fileNameInput" class="inputbox filename" placeholder="Nome do arquivo">
         </div>  
     
@@ -92,7 +92,9 @@
     <footer>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="./mixing-processor.js"></script>
+    <script type="module" src="./recorderWorkletProcessor.js"></script>
+    <script type="module" src="script.mjs" defer></script>
 
 </body>
 
